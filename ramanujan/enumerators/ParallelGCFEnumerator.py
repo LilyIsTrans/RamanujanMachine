@@ -111,11 +111,11 @@ class ParallelGCFEnumerator(EfficientGCFEnumerator):
         # Split task into chunks
         min_chunks = round(np.ceil(calculate_RAM_usage((asize, bsize)) / MAX_RAM))
         if min_chunks < max(asize, bsize):  # Iterate over intervals on the longer axis
-            achunk = asize if asize < bsize else np.int(np.ceil(asize / min_chunks))
-            bchunk = bsize if asize >= bsize else np.int(np.ceil(bsize / min_chunks))
+            achunk = asize if asize < bsize else int(np.ceil(asize / min_chunks))
+            bchunk = bsize if asize >= bsize else int(np.ceil(bsize / min_chunks))
         else:  # Iterate over intervals on the longer axis for each on the shorter axis
-            achunk = 1 if asize < bsize else np.int(np.ceil(asize * bsize / min_chunks))
-            bchunk = 1 if asize >= bsize else np.int(np.ceil(asize * bsize / min_chunks))
+            achunk = 1 if asize < bsize else int(np.ceil(asize * bsize / min_chunks))
+            bchunk = 1 if asize >= bsize else int(np.ceil(asize * bsize / min_chunks))
         
         if verbose:
             chunks_total = round(np.ceil(asize / achunk) * np.ceil(bsize / bchunk))
